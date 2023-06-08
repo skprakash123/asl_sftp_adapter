@@ -1,0 +1,121 @@
+# Background job yml file configuration
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: sftp-adapter-test
+  namespace: test
+spec:
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: sftp-adapter-test
+        spec:
+          containers:
+            - name: sftp-adapter-test-container
+              image: gcr.io/clus-demo/sftp-adapter-test
+              imagePullPolicy: IfNotPresent
+              command:
+                - npm
+                - run
+                - start
+              env:
+                - name: CLIENT_EMAIL
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: CLIENT_EMAIL
+                - name: CLIENT_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: CLIENT_ID
+                - name: PRIVATE_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: PRIVATE_KEY
+                - name: PROJECT_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: PROJECT_ID
+                - name: TOKEN_URL
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: TOKEN_URL
+                - name: allFileExtension
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: allFileExtension
+                - name: apiURL
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: apiURL
+                - name: bucketName
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: bucketName
+                - name: destinationPath
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: destinationPath
+                - name: ftpServerPath
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: ftpServerPath
+                - name: HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: HOST
+                - name: PORT
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: PORT
+                - name: USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: USER
+                - name: PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: PASSWORD
+                - name: SECURE
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: SECURE
+                - name: API_PORT
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: API_PORT
+                - name: API_ROOT
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: API_ROOT
+                - name: API_VERSION
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: API_VERSION
+                - name: API_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: sftp-service-secret-test
+                      key: API_HOST
+          restartPolicy: OnFailure
+  schedule: "0 */12 * * *"
+  successfulJobsHistoryLimit: 3
