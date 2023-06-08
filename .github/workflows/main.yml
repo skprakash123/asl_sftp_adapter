@@ -93,5 +93,5 @@ jobs:
         # replacing the image name in the k8s template
         sed -i "s|LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY/IMAGE:TAG|$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$BUILD_NUMBER|g" k8s/asl-dev/cronjob.yaml
         kubectl apply -f k8s/asl-dev/cronjob.yaml
-        kubectl rollout status deployment/$CRONJOB_NAME
+        kubectl rollout status cronjob/$CRONJOB_NAME
         kubectl get services -o wide
